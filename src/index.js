@@ -10,6 +10,6 @@
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello Github Actions!');
+		return new Response('Hello Money!');
 	},
 };
