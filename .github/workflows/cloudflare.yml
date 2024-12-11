@@ -1,14 +1,31 @@
-name: Build & Deploy Worker
+name: Build, Test & Deploy Worker
 
 on:
-  push:
+  push: # Trigger on any branch push
+    branches:
+      - '**' # All branches
+  pull_request: # Trigger on pull requests
     branches:
       - master
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Tests
+        run: npm test
+
   deploy:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     name: Build & Deploy Worker
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Build & Deploy Worker
