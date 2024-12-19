@@ -10,6 +10,6 @@
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello Github Action!');
+		return new Response('Hello CloudFlare!');
 	},
 };
